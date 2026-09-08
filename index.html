@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Estatística 6 Dígitos - Palpites Quentes &amp; Frios</title>
+
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: rgba(255,255,255,0.08);
+      --border: rgba(255,255,255,0.12);
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --green: #22c55e;
+      --red: #ef4444;
+      --blue: #3b82f6;
+      --orange: #f97316;
+      --purple: #8b5cf6;
+      --gray: #64748b;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Inter, -apple-system, sans-serif;
+      background: radial-gradient(circle at top left, #1e293b, #0f172a 60%);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 560px;
+      margin: auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .header h2 {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .header p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.1);
+      font-size: 12px;
+    }
+
+    .card {
+      background: var(--card);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 18px;
+      margin-bottom: 18px;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.25);
+    }
+
+    input, textarea, button {
+      width: 100%;
+      border: none;
+      border-radius: 14px;
+      padding: 14px;
+      font-size: 15px;
+      transition: all .25s ease;
+    }
+
+    input, textarea {
+      background: rgba(255,255,255,0.08);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: #cbd5e1;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: rgba(255,255,255,0.25);
+      transform: scale(1.01);
+    }
+
+    .btn-green {
+      background: var(--green);
+      color: #0f172a;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .btn-green:hover { opacity: 0.85; }
+
+    .btn-orange {
+      background: var(--orange);
+      color: #0f172a;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .btn-orange:hover { opacity: 0.85; }
+
+    .btn-red {
+      background: var(--red);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .btn-red:hover { opacity: 0.85; }
+
+    .btn-blue {
+      background: var(--blue);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-blue:hover { opacity: 0.85; }
+
+    .btn-purple {
+      background: var(--purple);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-purple:hover { opacity: 0.85; }
+
+    .btn-gray {
+      background: var(--gray);
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .btn-gray:hover { opacity: 0.85; }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .row button { width: 50%; }
+
+    .hidden { display: none; }
+
+    h3 {
+      margin: 20px 0 10px;
+      font-size: 18px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      margin-bottom: 18px;
+    }
+
+    th {
+      background: rgba(255,255,255,0.08);
+      color: white;
+      padding: 12px;
+      font-size: 13px;
+    }
+
+    tr {
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    tr:last-child { border-bottom: none; }
+
+    td {
+      padding: 12px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .top { background: rgba(34,197,94,0.18); }
+    .low { background: rgba(239,68,68,0.15); }
+
+    summary {
+      background: rgba(255,255,255,0.08);
+      padding: 14px;
+      border-radius: 14px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+    summary:hover { background: rgba(255,255,255,0.12); }
+
+    .palpite-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .palpite-item:last-child { border-bottom: none; }
+
+    .palpite-numero {
+      font-family: monospace;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      background: rgba(0,0,0,0.3);
+      padding: 4px 12px;
+      border-radius: 40px;
+    }
+
+    .palpite-just {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 18px;
+      color: #94a3b8;
+      font-size: 12px;
+    }
+
+    .blacklist-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .blacklist-item button {
+      width: auto;
+      padding: 4px 12px;
+      background: var(--red);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 12px;
+    }
+    .blacklist-item button:hover { opacity: 0.8; }
+
+    .toggle-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 8px 0;
+    }
+    .toggle-label input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      accent-color: var(--green);
+    }
+
+    .flex-row {
+      display: flex;
+      gap: 8px;
+      margin: 8px 0;
+    }
+    .flex-row input { flex: 1; }
+    .flex-row button { width: auto; padding: 14px 20px; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="header">
+    <h2>🎲 Estatística 6 Dígitos</h2>
+    <p>Análise + Palpites Quentes &amp; Frios • 6 posições</p>
+    <div class="badge">v1.0 - 6 Dígitos (ex: 012345)</div>
+  </div>
+
+  <!-- ====== ADICIONAR RESULTADO ====== -->
+  <div class="card">
+    <input type="number" id="numero" placeholder="Resultado ex: 123456" min="0" max="999999" inputmode="numeric" />
+    <button onclick="add()" class="btn-green">➕ Adicionar Resultado</button>
+    <button onclick="desfazer()" id="btnDesfazer" class="btn-orange hidden">↩️ Desfazer Último</button>
+
+    <div class="row">
+      <button onclick="salvarArquivo()" class="btn-purple">💾 Salvar</button>
+      <button onclick="document.getElementById('abrirArq').click()" class="btn-blue">📂 Abrir</button>
+    </div>
+    <input type="file" id="abrirArq" accept=".txt,.json" class="hidden" onchange="abrirArquivo(event)" />
+    <button onclick="limpar()" class="btn-red">🗑️ Zerar Tudo</button>
+
+    <details style="margin-top:16px;">
+      <summary>📥 Importar vários resultados</summary>
+      <textarea id="txtImport" placeholder="Cole aqui:&#10;123456&#10;789012&#10;345678"></textarea>
+      <button onclick="importarTXT()" class="btn-blue">📥 Importar Lista</button>
+    </details>
+
+    <button onclick="exportar()" class="btn-gray">📤 Exportar TXT</button>
+
+    <!-- ====== BLACKLIST ====== -->
+    <details style="margin-top:16px;">
+      <summary>🚫 Gerenciar Blacklist (remover números)</summary>
+      <div style="margin:10px 0;">
+        <div class="toggle-label">
+          <input type="checkbox" id="toggleBlacklist" checked />
+          <label for="toggleBlacklist">Aplicar Blacklist (ocultar números listados)</label>
+        </div>
+      </div>
+      <div class="flex-row">
+        <input type="number" id="addBlacklistInput" placeholder="Número p/ blacklist" min="0" max="999999" />
+        <button onclick="addBlacklistItem()" class="btn-red">➕</button>
+      </div>
+      <button onclick="removerBlacklistAutomatico()" class="btn-orange" style="margin-top:8px;">🤖 Remover repetidos automático</button>
+      <div id="blacklistContainer" style="margin-top:12px;"></div>
+    </details>
+
+    <!-- ====== PESQUISAR ====== -->
+    <details style="margin-top:16px;">
+      <summary>🔍 Pesquisar Número</summary>
+      <input type="number" id="buscaNumero" placeholder="Digite o número 000000-999999" min="0" max="999999" inputmode="numeric" />
+      <button onclick="pesquisarNumero()" class="btn-blue">Buscar</button>
+      <div id="resultadoBusca"></div>
+    </details>
+  </div>
+
+  <!-- ====== ESTATÍSTICAS ====== -->
+  <div class="card" id="estatisticas">
+    <h3>📊 Estatísticas por Posição</h3>
+    <div id="tabelaEstatisticas"></div>
+
+    <h3>🐾 Frequência dos Bichos</h3>
+    <div id="frequenciaBichos"></div>
+
+    <h3>🔁 Números Repetidos</h3>
+    <div id="repetidos"></div>
+  </div>
+
+  <!-- ====== PALPITES ====== -->
+  <div class="card">
+    <h3>🔥 Palpites Quentes</h3>
+    <div id="listaPalpitesQuentes"></div>
+
+    <h3>❄️ Palpites Frios</h3>
+    <div id="listaPalpitesFrios"></div>
+  </div>
+
+  <div class="footer">
+    Desenvolvido por Adaptação 6 Dígitos • Dados salvos localmente
+  </div>
+</div>
+
+<script>
+// ====================== DADOS GLOBAIS ======================
+let dados = JSON.parse(localStorage.getItem('dados6digitos') || '[]');
+let blacklist = JSON.parse(localStorage.getItem('blacklist6digitos') || '[]');
+
+const POSICOES = 6;
+const NOMES_POSICOES = ['P1', 'P2', 'P3', 'P4', 'P5', 'P6'];
+
+// Mapeamento dos bichos (mesmo do original, baseado nos 2 últimos dígitos)
+const bichos = {
+  '01':'Avestruz','02':'Avestruz','03':'Avestruz','04':'Avestruz',
+  '05':'Águia','06':'Águia','07':'Águia','08':'Águia',
+  '09':'Burro','10':'Burro','11':'Burro','12':'Burro',
+  '13':'Borboleta','14':'Borboleta','15':'Borboleta','16':'Borboleta',
+  '17':'Cachorro','18':'Cachorro','19':'Cachorro','20':'Cachorro',
+  '21':'Cabra','22':'Cabra','23':'Cabra','24':'Cabra',
+  '25':'Carneiro','26':'Carneiro','27':'Carneiro','28':'Carneiro',
+  '29':'Camelo','30':'Camelo','31':'Camelo','32':'Camelo',
+  '33':'Cobra','34':'Cobra','35':'Cobra','36':'Cobra',
+  '37':'Coelho','38':'Coelho','39':'Coelho','40':'Coelho',
+  '41':'Cavalo','42':'Cavalo','43':'Cavalo','44':'Cavalo',
+  '45':'Elefante','46':'Elefante','47':'Elefante','48':'Elefante',
+  '49':'Galo','50':'Galo','51':'Galo','52':'Galo',
+  '53':'Gato','54':'Gato','55':'Gato','56':'Gato',
+  '57':'Jacaré','58':'Jacaré','59':'Jacaré','60':'Jacaré',
+  '61':'Leão','62':'Leão','63':'Leão','64':'Leão',
+  '65':'Macaco','66':'Macaco','67':'Macaco','68':'Macaco',
+  '69':'Porco','70':'Porco','71':'Porco','72':'Porco',
+  '73':'Pavão','74':'Pavão','75':'Pavão','76':'Pavão',
+  '77':'Peru','78':'Peru','79':'Peru','80':'Peru',
+  '81':'Touro','82':'Touro','83':'Touro','84':'Touro',
+  '85':'Tigre','86':'Tigre','87':'Tigre','88':'Tigre',
+  '89':'Urso','90':'Urso','91':'Urso','92':'Urso',
+  '93':'Veado','94':'Veado','95':'Veado','96':'Veado',
+  '97':'Vaca','98':'Vaca','99':'Vaca','00':'Vaca'
+};
+
+// ====================== UTILITÁRIOS ======================
+function getDadosFiltrados() {
+  const toggle = document.getElementById('toggleBlacklist');
+  if (!toggle || !toggle.checked) return dados;
+  return dados.filter(n => {
+    const str = n.toString().padStart(POSICOES, '0');
+    return !blacklist.includes(str);
+  });
+}
+
+function salvarDados() {
+  localStorage.setItem('dados6digitos', JSON.stringify(dados));
+  localStorage.setItem('blacklist6digitos', JSON.stringify(blacklist));
+}
+
+// ====================== BLACKLIST ======================
+function renderBlacklist() {
+  const container = document.getElementById('blacklistContainer');
+  if (blacklist.length === 0) {
+    container.innerHTML = '<p style="color:var(--muted);">Nenhum número na blacklist.</p>';
+    return;
+  }
+  let html = '';
+  blacklist.forEach(item => {
+    html += `
+      <div class="blacklist-item">
+        <span><strong>${item}</strong></span>
+        <button onclick="removerBlacklist('${item}')">Remover</button>
+      </div>
+    `;
+  });
+  container.innerHTML = html;
+}
+
+function addBlacklistItem() {
+  const input = document.getElementById('addBlacklistInput');
+  let val = input.value.trim().padStart(POSICOES, '0');
+  if (!/^\d{6}$/.test(val)) {
+    alert('Digite um número de 6 dígitos (000000 a 999999).');
+    return;
+  }
+  if (!blacklist.includes(val)) {
+    blacklist.push(val);
+    salvarDados();
+    renderBlacklist();
+    atualizar();
+  }
+  input.value = '';
+}
+
+function removerBlacklist(item) {
+  blacklist = blacklist.filter(b => b !== item);
+  salvarDados();
+  renderBlacklist();
+  atualizar();
+}
+
+function removerBlacklistAutomatico() {
+  const limite = prompt('Remover números que repetiram mais de quantas vezes?', '1');
+  if (limite === null) return;
+  const qtd = parseInt(limite, 10);
+  if (isNaN(qtd) || qtd < 1) return;
+
+  const contagem = {};
+  dados.forEach(n => {
+    const str = n.toString().padStart(POSICOES, '0');
+    contagem[str] = (contagem[str] || 0) + 1;
+  });
+
+  let adicionados = 0;
+  for (let num in contagem) {
+    if (contagem[num] > qtd && !blacklist.includes(num)) {
+      blacklist.push(num);
+      adicionados++;
+    }
+  }
+  if (adicionados > 0) {
+    salvarDados();
+    renderBlacklist();
+    atualizar();
+    alert(`${adicionados} número(s) adicionado(s) à blacklist.`);
+  } else {
+    alert('Nenhum número novo para adicionar.');
+  }
+}
+
+// ====================== ESTATÍSTICAS ======================
+function calcularEstatisticas(dadosArray) {
+  const contagem = Array.from({ length: POSICOES }, () => ({}));
+  const contagemBicho = {};
+  const contagemNumero = {};
+
+  for (let n of dadosArray) {
+    const num = n.toString().padStart(POSICOES, '0');
+    for (let i = 0; i < POSICOES; i++) {
+      contagem[i][num[i]] = (contagem[i][num[i]] || 0) + 1;
+    }
+    const dezena = num.slice(-2);
+    const bicho = bichos[dezena] || 'Desconhecido';
+    contagemBicho[bicho] = (contagemBicho[bicho] || 0) + 1;
+    contagemNumero[num] = (contagemNumero[num] || 0) + 1;
+  }
+
+  // Atrasos
+  const atrasos = Array.from({ length: POSICOES }, () => []);
+  for (let pos = 0; pos < POSICOES; pos++) {
+    for (let dig = 0; dig <= 9; dig++) {
+      atrasos[pos][dig] = getAtraso(pos, dig.toString(), dadosArray);
+    }
+  }
+
+  return { contagem, contagemBicho, contagemNumero, atrasos };
+}
+
+function getAtraso(pos, dig, dadosArray) {
+  for (let i = dadosArray.length - 1; i >= 0; i--) {
+    const num = dadosArray[i].toString().padStart(POSICOES, '0');
+    if (num[pos] === dig) {
+      return dadosArray.length - 1 - i;
+    }
+  }
+  return dadosArray.length;
+}
+
+function renderEstatisticas() {
+  const dadosFiltrados = getDadosFiltrados();
+  if (dadosFiltrados.length === 0) {
+    document.getElementById('tabelaEstatisticas').innerHTML = '<p style="color:var(--muted);">Nenhum dado para exibir.</p>';
+    document.getElementById('frequenciaBichos').innerHTML = '';
+    document.getElementById('repetidos').innerHTML = '';
+    return;
+  }
+
+  const { contagem, contagemBicho, contagemNumero, atrasos } = calcularEstatisticas(dadosFiltrados);
+  const total = dadosFiltrados.length;
+
+  // Tabela por posição
+  let html = '<table><thead><tr><th>Dígito</th>';
+  for (let p = 0; p < POSICOES; p++) {
+    html += `<th>${NOMES_POSICOES[p]}</th>`;
+  }
+  html += '</tr></thead><tbody>';
+
+  for (let dig = 0; dig <= 9; dig++) {
+    const d = dig.toString();
+    html += `<tr><td><strong>${d}</strong></td>`;
+    for (let p = 0; p < POSICOES; p++) {
+      const freq = contagem[p][d] || 0;
+      const pct = total > 0 ? ((freq / total) * 100).toFixed(1) : '0.0';
+      const atraso = atrasos[p][dig];
+      let cls = '';
+      if (freq > 0 && freq / total > 0.15) cls = 'top';
+      else if (freq === 0) cls = 'low';
+      html += `<td class="${cls}">${freq}<br><small>${pct}% | atr:${atraso}</small></td>`;
+    }
+    html += '</tr>';
+  }
+  html += '</tbody></table>';
+  document.getElementById('tabelaEstatisticas').innerHTML = html;
+
+  // Frequência dos bichos
+  let bichoHtml = '<table><thead><tr><th>Bicho</th><th>Frequência</th><th>%</th></tr></thead><tbody>';
+  const sortedBichos = Object.entries(contagemBicho).sort((a, b) => b[1] - a[1]);
+  for (let [bicho, freq] of sortedBichos) {
+    const pct = total > 0 ? ((freq / total) * 100).toFixed(1) : '0.0';
+    bichoHtml += `<tr><td>${bicho}</td><td>${freq}</td><td>${pct}%</td></tr>`;
+  }
+  bichoHtml += '</tbody></table>';
+  document.getElementById('frequenciaBichos').innerHTML = bichoHtml;
+
+  // Números repetidos
+  const repetidos = Object.entries(contagemNumero).filter(([_, qtd]) => qtd > 1).sort((a, b) => b[1] - a[1]);
+  if (repetidos.length === 0) {
+    document.getElementById('repetidos').innerHTML = '<p style="color:var(--muted);">Nenhum número repetido.</p>';
+  } else {
+    let repHtml = '<table><thead><tr><th>Número</th><th>Vezes</th></tr></thead><tbody>';
+    for (let [num, qtd] of repetidos) {
+      repHtml += `<tr><td>${num}</td><td>${qtd}</td></tr>`;
+    }
+    repHtml += '</tbody></table>';
+    document.getElementById('repetidos').innerHTML = repHtml;
+  }
+}
+
+// ====================== PALPITES ======================
+function gerarPalpites() {
+  const dadosFiltrados = getDadosFiltrados();
+  if (dadosFiltrados.length < 3) {
+    document.getElementById('listaPalpitesQuentes').innerHTML = '<p style="text-align:center;color:var(--muted);">⚠️ Adicione pelo menos 3 resultados para gerar palpites.</p>';
+    document.getElementById('listaPalpitesFrios').innerHTML = '';
+    return;
+  }
+
+  const { contagem, atrasos } = calcularEstatisticas(dadosFiltrados);
+
+  // ---- Palpites Quentes ----
+  function topDigitosFrequentes(pos, quantos = 2) {
+    const arr = Object.entries(contagem[pos]).sort((a, b) => b[1] - a[1]);
+    return arr.slice(0, quantos).map(e => e[0]);
+  }
+
+  const topsQuentes = [];
+  for (let p = 0; p < POSICOES; p++) {
+    topsQuentes.push(topDigitosFrequentes(p, 2));
+  }
+
+  let combinacoesQuentes = [[]];
+  for (let p = 0; p < POSICOES; p++) {
+    const novas = [];
+    for (let comb of combinacoesQuentes) {
+      for (let dig of topsQuentes[p]) {
+        novas.push([...comb, dig]);
+      }
+    }
+    combinacoesQuentes = novas;
+  }
+  combinacoesQuentes = combinacoesQuentes.map(arr => arr.join(''));
+  combinacoesQuentes = [...new Set(combinacoesQuentes)].slice(0, 8);
+
+  // ---- Palpites Frios ----
+  function topDigitosAtrasados(pos, quantos = 2) {
+    const arr = [];
+    for (let dig = 0; dig <= 9; dig++) {
+      arr.push({ dig: dig.toString(), atraso: atrasos[pos][dig] });
+    }
+    arr.sort((a, b) => b.atraso - a.atraso);
+    return arr.slice(0, quantos).map(e => e.dig);
+  }
+
+  const topsFrios = [];
+  for (let p = 0; p < POSICOES; p++) {
+    topsFrios.push(topDigitosAtrasados(p, 2));
+  }
+
+  let combinacoesFrias = [[]];
+  for (let p = 0; p < POSICOES; p++) {
+    const novas = [];
+    for (let comb of combinacoesFrias) {
+      for (let dig of topsFrios[p]) {
+        novas.push([...comb, dig]);
+      }
+    }
+    combinacoesFrias = novas;
+  }
+  combinacoesFrias = combinacoesFrias.map(arr => arr.join(''));
+  combinacoesFrias = [...new Set(combinacoesFrias)].slice(0, 8);
+
+  // Renderizar
+  let qHtml = '';
+  combinacoesQuentes.forEach(num => {
+    qHtml += `<div class="palpite-item"><span class="palpite-numero">${num}</span><span class="palpite-just">🔥 Quente</span></div>`;
+  });
+  document.getElementById('listaPalpitesQuentes').innerHTML = qHtml || '<p style="color:var(--muted);">Nenhum palpite gerado.</p>';
+
+  let fHtml = '';
+  combinacoesFrias.forEach(num => {
+    fHtml += `<div class="palpite-item"><span class="palpite-numero">${num}</span><span class="palpite-just">❄️ Frio</span></div>`;
+  });
+  document.getElementById('listaPalpitesFrios').innerHTML = fHtml || '<p style="color:var(--muted);">Nenhum palpite gerado.</p>';
+}
+
+// ====================== FUNÇÕES PRINCIPAIS ======================
+function add() {
+  const input = document.getElementById('numero');
+  let val = input.value.trim();
+  if (!/^\d{6}$/.test(val)) {
+    alert('Digite um número de 6 dígitos (000000 a 999999).');
+    return;
+  }
+  const num = parseInt(val, 10);
+  if (isNaN(num) || num < 0 || num > 999999) {
+    alert('Número inválido.');
+    return;
+  }
+  dados.push(num);
+  salvarDados();
+  in
