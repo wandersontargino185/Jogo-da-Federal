@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Estatística 6 Dígitos - Palpites Quentes &amp; Frios</title>
+  <title>Estatística 6 Dígitos - Palpites em Destaque</title>
 
   <style>
     :root {
@@ -20,12 +20,7 @@
       --gray: #64748b;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: Inter, -apple-system, sans-serif;
       background: radial-gradient(circle at top left, #1e293b, #0f172a 60%);
@@ -33,28 +28,10 @@
       min-height: 100vh;
       padding: 20px;
     }
-
-    .container {
-      max-width: 560px;
-      margin: auto;
-    }
-
-    .header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .header h2 {
-      font-size: 28px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-
-    .header p {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
+    .container { max-width: 560px; margin: auto; }
+    .header { text-align: center; margin-bottom: 20px; }
+    .header h2 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+    .header p { color: var(--muted); font-size: 14px; }
     .badge {
       display: inline-block;
       margin-top: 10px;
@@ -63,7 +40,6 @@
       background: rgba(255,255,255,0.1);
       font-size: 12px;
     }
-
     .card {
       background: var(--card);
       backdrop-filter: blur(14px);
@@ -73,7 +49,6 @@
       margin-bottom: 18px;
       box-shadow: 0 10px 35px rgba(0,0,0,0.25);
     }
-
     input, textarea, button {
       width: 100%;
       border: none;
@@ -82,89 +57,33 @@
       font-size: 15px;
       transition: all .25s ease;
     }
-
     input, textarea {
       background: rgba(255,255,255,0.08);
       color: white;
       border: 1px solid rgba(255,255,255,0.08);
     }
-
-    input::placeholder, textarea::placeholder {
-      color: #cbd5e1;
-    }
-
+    input::placeholder, textarea::placeholder { color: #cbd5e1; }
     input:focus, textarea:focus {
       outline: none;
       border-color: rgba(255,255,255,0.25);
       transform: scale(1.01);
     }
-
-    .btn-green {
-      background: var(--green);
-      color: #0f172a;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 10px;
-    }
+    .btn-green { background: var(--green); color: #0f172a; font-weight: 700; cursor: pointer; margin-top: 10px; }
     .btn-green:hover { opacity: 0.85; }
-
-    .btn-orange {
-      background: var(--orange);
-      color: #0f172a;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 10px;
-    }
+    .btn-orange { background: var(--orange); color: #0f172a; font-weight: 700; cursor: pointer; margin-top: 10px; }
     .btn-orange:hover { opacity: 0.85; }
-
-    .btn-red {
-      background: var(--red);
-      color: white;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 10px;
-    }
+    .btn-red { background: var(--red); color: white; font-weight: 700; cursor: pointer; margin-top: 10px; }
     .btn-red:hover { opacity: 0.85; }
-
-    .btn-blue {
-      background: var(--blue);
-      color: white;
-      font-weight: 700;
-      cursor: pointer;
-    }
+    .btn-blue { background: var(--blue); color: white; font-weight: 700; cursor: pointer; }
     .btn-blue:hover { opacity: 0.85; }
-
-    .btn-purple {
-      background: var(--purple);
-      color: white;
-      font-weight: 700;
-      cursor: pointer;
-    }
+    .btn-purple { background: var(--purple); color: white; font-weight: 700; cursor: pointer; }
     .btn-purple:hover { opacity: 0.85; }
-
-    .btn-gray {
-      background: var(--gray);
-      color: white;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 10px;
-    }
+    .btn-gray { background: var(--gray); color: white; font-weight: 700; cursor: pointer; margin-top: 10px; }
     .btn-gray:hover { opacity: 0.85; }
-
-    .row {
-      display: flex;
-      gap: 10px;
-      margin-top: 10px;
-    }
+    .row { display: flex; gap: 10px; margin-top: 10px; }
     .row button { width: 50%; }
-
     .hidden { display: none; }
-
-    h3 {
-      margin: 20px 0 10px;
-      font-size: 18px;
-    }
-
+    h3 { margin: 20px 0 10px; font-size: 18px; }
     table {
       width: 100%;
       border-collapse: collapse;
@@ -173,28 +92,12 @@
       background: rgba(255,255,255,0.04);
       margin-bottom: 18px;
     }
-
-    th {
-      background: rgba(255,255,255,0.08);
-      color: white;
-      padding: 12px;
-      font-size: 13px;
-    }
-
-    tr {
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
+    th { background: rgba(255,255,255,0.08); color: white; padding: 12px; font-size: 13px; }
+    tr { border-bottom: 1px solid rgba(255,255,255,0.05); }
     tr:last-child { border-bottom: none; }
-
-    td {
-      padding: 12px;
-      text-align: center;
-      font-size: 14px;
-    }
-
+    td { padding: 12px; text-align: center; font-size: 14px; }
     .top { background: rgba(34,197,94,0.18); }
     .low { background: rgba(239,68,68,0.15); }
-
     summary {
       background: rgba(255,255,255,0.08);
       padding: 14px;
@@ -203,7 +106,6 @@
       font-weight: 700;
     }
     summary:hover { background: rgba(255,255,255,0.12); }
-
     .palpite-item {
       display: flex;
       justify-content: space-between;
@@ -212,7 +114,6 @@
       border-bottom: 1px solid rgba(255,255,255,0.05);
     }
     .palpite-item:last-child { border-bottom: none; }
-
     .palpite-numero {
       font-family: monospace;
       font-size: 20px;
@@ -222,19 +123,8 @@
       padding: 4px 12px;
       border-radius: 40px;
     }
-
-    .palpite-just {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .footer {
-      text-align: center;
-      margin-top: 18px;
-      color: #94a3b8;
-      font-size: 12px;
-    }
-
+    .palpite-just { font-size: 12px; color: var(--muted); }
+    .footer { text-align: center; margin-top: 18px; color: #94a3b8; font-size: 12px; }
     .blacklist-item {
       display: flex;
       justify-content: space-between;
@@ -252,7 +142,6 @@
       font-size: 12px;
     }
     .blacklist-item button:hover { opacity: 0.8; }
-
     .toggle-label {
       display: flex;
       align-items: center;
@@ -264,7 +153,6 @@
       height: 20px;
       accent-color: var(--green);
     }
-
     .flex-row {
       display: flex;
       gap: 8px;
@@ -280,8 +168,8 @@
 
   <div class="header">
     <h2>🎲 Estatística 6 Dígitos</h2>
-    <p>Análise + Palpites Quentes &amp; Frios • 6 posições</p>
-    <div class="badge">v1.0 - 6 Dígitos (ex: 012345)</div>
+    <p>Análise + Palpites • Ordenação por Data</p>
+    <div class="badge">v3.1 - Palpites em destaque</div>
   </div>
 
   <!-- ====== ADICIONAR RESULTADO ====== -->
@@ -297,8 +185,20 @@
     <input type="file" id="abrirArq" accept=".txt,.json" class="hidden" onchange="abrirArquivo(event)" />
     <button onclick="limpar()" class="btn-red">🗑️ Zerar Tudo</button>
 
+    <!-- ====== IMPORTAR ARQUIVO FEDERAL ====== -->
     <details style="margin-top:16px;">
-      <summary>📥 Importar vários resultados</summary>
+      <summary>📥 Importar resultados da Loteria Federal (formato concurso)</summary>
+      <p style="font-size:13px; color:var(--muted); margin-bottom:8px;">
+        Selecione um arquivo .txt com linhas no formato:<br>
+        <code>Concurso: 1 | Data: 29/11/-0001 | Números: 1° 5349 2° 38031 ...</code>
+      </p>
+      <input type="file" id="fileFederal" accept=".txt" onchange="importarFederal(event)" />
+      <button onclick="document.getElementById('fileFederal').click()" class="btn-blue" style="margin-top:8px;">📂 Escolher arquivo</button>
+      <div id="statusFederal" style="margin-top:10px; font-size:13px;"></div>
+    </details>
+
+    <details style="margin-top:16px;">
+      <summary>📥 Importar vários números (um por linha)</summary>
       <textarea id="txtImport" placeholder="Cole aqui:&#10;123456&#10;789012&#10;345678"></textarea>
       <button onclick="importarTXT()" class="btn-blue">📥 Importar Lista</button>
     </details>
@@ -331,7 +231,7 @@
     </details>
   </div>
 
-  <!-- ====== ESTATÍSTICAS ====== -->
+  <!-- ====== ESTATÍSTICAS + PALPITES ====== -->
   <div class="card" id="estatisticas">
     <h3>📊 Estatísticas por Posição</h3>
     <div id="tabelaEstatisticas"></div>
@@ -339,17 +239,15 @@
     <h3>🐾 Frequência dos Bichos</h3>
     <div id="frequenciaBichos"></div>
 
-    <h3>🔁 Números Repetidos</h3>
-    <div id="repetidos"></div>
-  </div>
-
-  <!-- ====== PALPITES ====== -->
-  <div class="card">
+    <!-- PALPITES AGORA AQUI (acima dos números repetidos) -->
     <h3>🔥 Palpites Quentes</h3>
     <div id="listaPalpitesQuentes"></div>
 
     <h3>❄️ Palpites Frios</h3>
     <div id="listaPalpitesFrios"></div>
+
+    <h3>🔁 Números Repetidos</h3>
+    <div id="repetidos"></div>
   </div>
 
   <div class="footer">
@@ -365,7 +263,7 @@ let blacklist = JSON.parse(localStorage.getItem('blacklist6digitos') || '[]');
 const POSICOES = 6;
 const NOMES_POSICOES = ['P1', 'P2', 'P3', 'P4', 'P5', 'P6'];
 
-// Mapeamento dos bichos (mesmo do original, baseado nos 2 últimos dígitos)
+// Mapeamento dos bichos (mesmo do original)
 const bichos = {
   '01':'Avestruz','02':'Avestruz','03':'Avestruz','04':'Avestruz',
   '05':'Águia','06':'Águia','07':'Águia','08':'Águia',
@@ -497,7 +395,6 @@ function calcularEstatisticas(dadosArray) {
     contagemNumero[num] = (contagemNumero[num] || 0) + 1;
   }
 
-  // Atrasos
   const atrasos = Array.from({ length: POSICOES }, () => []);
   for (let pos = 0; pos < POSICOES; pos++) {
     for (let dig = 0; dig <= 9; dig++) {
@@ -524,6 +421,8 @@ function renderEstatisticas() {
     document.getElementById('tabelaEstatisticas').innerHTML = '<p style="color:var(--muted);">Nenhum dado para exibir.</p>';
     document.getElementById('frequenciaBichos').innerHTML = '';
     document.getElementById('repetidos').innerHTML = '';
+    document.getElementById('listaPalpitesQuentes').innerHTML = '';
+    document.getElementById('listaPalpitesFrios').innerHTML = '';
     return;
   }
 
@@ -564,6 +463,9 @@ function renderEstatisticas() {
   bichoHtml += '</tbody></table>';
   document.getElementById('frequenciaBichos').innerHTML = bichoHtml;
 
+  // GERAR PALPITES (agora dentro da mesma função para manter sincronia)
+  gerarPalpitesComDados(dadosFiltrados, contagem, atrasos);
+
   // Números repetidos
   const repetidos = Object.entries(contagemNumero).filter(([_, qtd]) => qtd > 1).sort((a, b) => b[1] - a[1]);
   if (repetidos.length === 0) {
@@ -579,15 +481,12 @@ function renderEstatisticas() {
 }
 
 // ====================== PALPITES ======================
-function gerarPalpites() {
-  const dadosFiltrados = getDadosFiltrados();
+function gerarPalpitesComDados(dadosFiltrados, contagem, atrasos) {
   if (dadosFiltrados.length < 3) {
     document.getElementById('listaPalpitesQuentes').innerHTML = '<p style="text-align:center;color:var(--muted);">⚠️ Adicione pelo menos 3 resultados para gerar palpites.</p>';
     document.getElementById('listaPalpitesFrios').innerHTML = '';
     return;
   }
-
-  const { contagem, atrasos } = calcularEstatisticas(dadosFiltrados);
 
   // ---- Palpites Quentes ----
   function topDigitosFrequentes(pos, quantos = 2) {
@@ -655,6 +554,18 @@ function gerarPalpites() {
   document.getElementById('listaPalpitesFrios').innerHTML = fHtml || '<p style="color:var(--muted);">Nenhum palpite gerado.</p>';
 }
 
+// Mantemos a função antiga para compatibilidade (pode ser chamada por atualizar)
+function gerarPalpites() {
+  const dadosFiltrados = getDadosFiltrados();
+  if (dadosFiltrados.length === 0) {
+    document.getElementById('listaPalpitesQuentes').innerHTML = '';
+    document.getElementById('listaPalpitesFrios').innerHTML = '';
+    return;
+  }
+  const { contagem, atrasos } = calcularEstatisticas(dadosFiltrados);
+  gerarPalpitesComDados(dadosFiltrados, contagem, atrasos);
+}
+
 // ====================== FUNÇÕES PRINCIPAIS ======================
 function add() {
   const input = document.getElementById('numero');
@@ -670,4 +581,217 @@ function add() {
   }
   dados.push(num);
   salvarDados();
-  in
+  input.value = '';
+  atualizar();
+}
+
+function desfazer() {
+  if (dados.length === 0) return;
+  dados.pop();
+  salvarDados();
+  atualizar();
+}
+
+function limpar() {
+  if (!confirm('Tem certeza que deseja zerar todos os resultados?')) return;
+  dados = [];
+  salvarDados();
+  atualizar();
+}
+
+function salvarArquivo() {
+  const blob = new Blob([JSON.stringify(dados, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'resultados_6digitos.json';
+  a.click();
+}
+
+function abrirArquivo(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      let conteudo = e.target.result;
+      if (conteudo.charCodeAt(0) === 0xFEFF) conteudo = conteudo.slice(1);
+      let novos;
+      try {
+        novos = JSON.parse(conteudo);
+        if (!Array.isArray(novos)) throw new Error('Não é array.');
+      } catch {
+        const linhas = conteudo.split('\n').map(s => s.trim()).filter(s => /^\d{6}$/.test(s));
+        if (linhas.length === 0) throw new Error('Nenhum número válido (000000-999999) encontrado.');
+        novos = linhas.map(Number);
+      }
+      const validos = novos.filter(n => Number.isInteger(n) && n >= 0 && n <= 999999);
+      if (validos.length === 0) {
+        alert('Nenhum número válido (000000-999999) encontrado.');
+        return;
+      }
+      dados = dados.concat(validos);
+      salvarDados();
+      atualizar();
+      alert(`${validos.length} número(s) importado(s) com sucesso.`);
+    } catch (err) {
+      alert('Erro ao ler arquivo: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+// ====== FUNÇÃO MELHORADA: IMPORTAR ARQUIVO FEDERAL COM ORDENAÇÃO POR DATA ======
+function importarFederal(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const statusDiv = document.getElementById('statusFederal');
+  statusDiv.innerHTML = '⏳ Lendo arquivo...';
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const conteudo = e.target.result;
+      const linhas = conteudo.split('\n');
+      let registros = [];
+
+      const regexConcurso = /Concurso:\s*(\d+)/i;
+      const regexData = /Data:\s*([\d\/\-]+)/i;
+      const regexNumeros = /(\d+°)\s+(\d+)/g;
+
+      for (let linha of linhas) {
+        if (!linha.includes('Concurso:')) continue;
+
+        const matchConcurso = linha.match(regexConcurso);
+        if (!matchConcurso) continue;
+        const concurso = parseInt(matchConcurso[1], 10);
+
+        const matchData = linha.match(regexData);
+        let data = null;
+        if (matchData) {
+          const dataStr = matchData[1].trim();
+          const partes = dataStr.split('/');
+          if (partes.length === 3) {
+            const dia = parseInt(partes[0], 10);
+            const mes = parseInt(partes[1], 10) - 1;
+            let ano = parseInt(partes[2], 10);
+            if (ano >= 0 && ano <= 9999) {
+              const d = new Date(ano, mes, dia);
+              if (!isNaN(d.getTime())) {
+                data = d;
+              }
+            }
+          }
+        }
+
+        let numeros = [];
+        let match;
+        while ((match = regexNumeros.exec(linha)) !== null) {
+          let numStr = match[2].trim();
+          if (numStr.length > 6) continue;
+          const num = parseInt(numStr, 10);
+          if (!isNaN(num) && num >= 0 && num <= 999999) {
+            numeros.push(num);
+          }
+        }
+
+        if (numeros.length > 0) {
+          registros.push({ concurso, data, numeros });
+        }
+      }
+
+      // Ordenação: data (mais antiga) e depois concurso
+      registros.sort((a, b) => {
+        if (a.data && b.data) {
+          if (a.data.getTime() !== b.data.getTime()) {
+            return a.data.getTime() - b.data.getTime();
+          }
+        }
+        if (a.data && !b.data) return -1;
+        if (!a.data && b.data) return 1;
+        return a.concurso - b.concurso;
+      });
+
+      let totalExtraidos = 0;
+      for (let reg of registros) {
+        dados = dados.concat(reg.numeros);
+        totalExtraidos += reg.numeros.length;
+      }
+
+      if (totalExtraidos === 0) {
+        statusDiv.innerHTML = '⚠️ Nenhum número encontrado. Verifique o formato.';
+        return;
+      }
+
+      salvarDados();
+      atualizar();
+      statusDiv.innerHTML = `✅ ${totalExtraidos} número(s) importados com sucesso! (Ordenados por data)`;
+    } catch (err) {
+      statusDiv.innerHTML = '❌ Erro ao ler arquivo: ' + err.message;
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+function importarTXT() {
+  const textarea = document.getElementById('txtImport');
+  const linhas = textarea.value.split('\n').map(s => s.trim()).filter(s => /^\d{6}$/.test(s));
+  if (linhas.length === 0) {
+    alert('Nenhum número válido (000000-999999) encontrado.');
+    return;
+  }
+  const numeros = linhas.map(Number);
+  dados = dados.concat(numeros);
+  salvarDados();
+  textarea.value = '';
+  atualizar();
+  alert(`${numeros.length} número(s) importado(s).`);
+}
+
+function exportar() {
+  let txt = dados.map(n => n.toString().padStart(POSICOES, '0')).join('\n');
+  const blob = new Blob([txt], { type: 'text/plain' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'resultados_6digitos.txt';
+  a.click();
+}
+
+function pesquisarNumero() {
+  const input = document.getElementById('buscaNumero');
+  let val = input.value.trim().padStart(POSICOES, '0');
+  if (!/^\d{6}$/.test(val)) {
+    document.getElementById('resultadoBusca').innerHTML = '<p style="color:var(--red);">Digite um número de 6 dígitos.</p>';
+    return;
+  }
+  const num = parseInt(val, 10);
+  const encontrado = dados.filter(n => n === num);
+  const total = encontrado.length;
+  const ultimo = dados.lastIndexOf(num);
+  let html = `<p><strong>${val}</strong> apareceu <strong>${total}</strong> vez(es).`;
+  if (total > 0) {
+    const pos = dados.length - 1 - ultimo;
+    html += ` Última vez há ${pos} sorteio(s).`;
+  }
+  html += '</p>';
+  document.getElementById('resultadoBusca').innerHTML = html;
+}
+
+// ====================== ATUALIZAR TUDO ======================
+function atualizar() {
+  const btnDesfazer = document.getElementById('btnDesfazer');
+  if (dados.length > 0) btnDesfazer.classList.remove('hidden');
+  else btnDesfazer.classList.add('hidden');
+
+  renderBlacklist();
+  renderEstatisticas(); // agora já chama os palpites internamente
+  salvarDados();
+}
+
+// ====================== INICIALIZAR ======================
+atualizar();
+</script>
+
+</body>
+</html>
